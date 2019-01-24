@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@getHome');
 
 
 
@@ -23,16 +21,8 @@ Route::get('login', function () {
 Route::get('logout', function () {
     return 'Logout Usuario';
 });
-Route::get('catalog', function () {
-    return view('catalog.index');
-});
-Route::get('catalog/show/{id}', function ($id) {
+Route::get('catalog' , 'CatalogController@getIndex');
+Route::get('catalog/show/{id}', 'CatalogController@getShow');
+Route::get('catalog/create',   'CatalogController@getCreate');
 
-    return view('catalog.show',array('id'=>$id));
-});
-Route::get('catalog/create', function () {
-    return view('catalog.create');
-});
-Route::get('catalog/edit/{id}', function ($id) {
-    return view('catalog.edit',array('id'=>$id));
-});
+Route::get('catalog/edit/{id}',  'CatalogController@getEdit');
