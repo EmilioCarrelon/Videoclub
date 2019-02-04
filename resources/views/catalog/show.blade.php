@@ -7,7 +7,7 @@
         <div class="col-sm-4">
 
             {{-- TODO: Imagen de la película --}}
-            <img src="{{$pelicula['poster']}}"  class="img-fluid"/>
+            <img src="{{$pelicula->poster}}"  class="img-fluid"/>
 
         </div>
         <div class="col-sm-8">
@@ -15,25 +15,27 @@
             {{-- TODO: Datos de la película --}}
 
             <h4 style="min-height:45px;margin:5px 0 10px 0">
-                {{$pelicula['title']}}
+                {{$pelicula->title}}
             </h4>
-            <p>Año:{{$pelicula['year']}}</p>
-            <p>Director:{{$pelicula['director']}}</p>
+            <p>Año:{{$pelicula->year}}</p>
+            <p>Director:{{$pelicula->director}}</p>
 
-            <p>Resumen:{{$pelicula['synopsis']}}</p>
+            <p>Resumen:{{$pelicula->synopsis}}</p>
 
-            @if( $pelicula['rented'] =true )
+            @if( $pelicula->rented==0 )
                 <p>Estado: Pelicula disponible actualmente</p>
-                <button type="button" class="btn btn-primary">Alquilar</button>
-                <a class="btn btn-primary" href="{{url('/catalog/edit/' . $id )}}" role="button"><i class="fas fa-pencil-alt"></i>Editar Pelicula</a>
+                <a class="btn btn-primary" href="{{url('/catalog/devolver/' . $pelicula->id )}}" role="button">Alquilar</a>
+
+                <a class="btn btn-dark" href="{{url('/catalog/edit/' . $pelicula->id )}}" role="button"><i class="fas fa-pencil-alt"></i>Editar Pelicula</a>
 
                 <button type="button" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Volver al listado</button>
 
-            @elseif ($pelicula['rented']==false)
+            @elseif ($pelicula->rented==1)
                 <p>Estado: pelicula no disponible actualmente</p>
-                <button type="button" class="btn btn-danger">Devolver pelicula</button>
-                <button type="button" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>Editar Pelicula</button>
-                <button type="button" class="btn btn-dark"><i class="fas fa-arrow-left"></i>Volver al listado</button>
+                <a class="btn btn-danger" href="{{url('/catalog/devolver/' . $pelicula->id )}}" role="button">Devolver pelicula</a>
+                <a class="btn btn-dark" href="{{url('/catalog/edit/' . $pelicula->id )}}" role="button"><i class="fas fa-pencil-alt"></i>Editar Pelicula</a>
+
+                <button type="button" class="btn btn-danger"><i class="fas fa-arrow-left"></i>Volver al listado</button>
 
             @endif
         </div>
