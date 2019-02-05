@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\Movie;
+use App\User;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,8 +17,28 @@ class DatabaseSeeder extends Seeder
         self::seedCatalog();
         $this->command->info('Tabla catálogo inicializada con datos!');
 
+        self::seedUsers();
+        $this->command->info('Tabla usuarios inicializada con datos!');
+
     }
 
+    private static function seedUsers()
+    {
+        User::truncate();
+
+        User::create([
+            'name'=>'Usuario1',
+             'email'=>'usuario1@videoclub.com'   ,
+                'password'=>bcrypt('alumno')
+
+            ]);
+        User::create([
+            'name'=>'Usuario2',
+            'email'=>'usuario2@videoclub.com'   ,
+            'password'=>bcrypt('alumno')
+
+        ]);
+    }
 
     private static function seedCatalog()
     {
@@ -27,20 +48,20 @@ class DatabaseSeeder extends Seeder
             echo $pelicula->delete();
         }*/
 
-        foreach( self::$arrayPeliculas as $pelicula ) {
-        $p = new Movie;
-        $p->title = $pelicula['title'];
-        $p->year = $pelicula['year'];
-        $p->director = $pelicula['director'];
-        $p->poster = $pelicula['poster'];
-        $p->rented = $pelicula['rented'];
-        $p->synopsis = $pelicula['synopsis'];
-        $p->save();
+        foreach (self::$arrayPeliculas as $pelicula) {
+            $p = new Movie;
+            $p->title = $pelicula['title'];
+            $p->year = $pelicula['year'];
+            $p->director = $pelicula['director'];
+            $p->poster = $pelicula['poster'];
+            $p->rented = $pelicula['rented'];
+            $p->synopsis = $pelicula['synopsis'];
+            $p->save();
+        }
+
+
     }
 
-
-
-    }
     private static $arrayPeliculas = array(
         array(
             'title' => 'El padrino',

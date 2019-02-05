@@ -18,5 +18,4 @@
         @endforeach
 
     </div>
-
-@stopweb
+    @endsection
